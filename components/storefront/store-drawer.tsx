@@ -23,8 +23,8 @@ export function StoreDrawer({ open, onClose }: { open: boolean; onClose: () => v
   return (
     <div
       className={cn(
-        "fixed inset-0 z-[60] transition",
-        open ? "pointer-events-auto" : "pointer-events-none"
+        "fixed inset-0 z-[60] overflow-hidden transition",
+        open ? "pointer-events-auto visible" : "pointer-events-none invisible"
       )}
       aria-hidden={open ? undefined : true}
     >

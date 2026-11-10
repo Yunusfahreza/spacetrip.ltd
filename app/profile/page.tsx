@@ -46,7 +46,7 @@ export default async function ProfilePage({
       <MobileShell>
         <StoreHeader title="Profil" />
 
-        <main className="px-5 pb-6">
+        <main className="mx-auto max-w-2xl px-5 pb-6 md:pt-4">
           <section className="mt-4 rounded-3xl border border-(--st-border) bg-white p-5 shadow-[0_12px_28px_rgba(17,24,39,0.10)]">
             <div className="text-lg font-semibold tracking-tight text-(--st-text)">
               Masuk untuk lanjut
@@ -75,11 +75,12 @@ export default async function ProfilePage({
 
   const { data: profile, error } = await supabase
     .from("profiles")
-    .select("full_name,phone,shipping_address")
+    .select("role,full_name,phone,shipping_address")
     .eq("id", user.id)
     .maybeSingle();
   if (error) throw error;
 
+  const isAdminOrSeller = profile?.role === "admin" || profile?.role === "seller";
   const addr = (profile?.shipping_address ?? null) as Partial<ShippingAddress> | null;
   const fullNameOk = Boolean(profile?.full_name && String(profile.full_name).trim().length > 0);
   const addrOk = isCompleteAddress(addr);
@@ -89,10 +90,17 @@ export default async function ProfilePage({
     <MobileShell>
       <StoreHeader title="Profil" />
 
-      <main className="px-5 pb-6">
+      <main className="mx-auto max-w-2xl px-5 pb-6 md:pt-4">
         <section className="mt-4 rounded-3xl border border-(--st-border) bg-white p-5 shadow-[0_12px_28px_rgba(17,24,39,0.10)]">
-          <div className="text-lg font-semibold tracking-tight text-(--st-text)">
-            Akun kamu
+          <div className="flex items-center justify-between gap-2">
+            <div className="text-lg font-semibold tracking-tight text-(--st-text)">
+              Akun kamu
+            </div>
+            {isAdminOrSeller ? (
+              <span className="rounded-full bg-black px-2.5 py-0.5 text-[11px] font-medium text-white uppercase">
+                {profile?.role === "admin" ? "Super Admin" : "Seller"}
+              </span>
+            ) : null}
           </div>
           <div className="mt-1 text-sm text-(--st-text-muted)">
             {user.email ?? "—"}
@@ -127,7 +135,12 @@ export default async function ProfilePage({
           </div>
 
           <div className="mt-5 grid gap-2">
-            <Button asChild className="h-11 rounded-full">
+            {isAdminOrSeller ? (
+              <Button asChild className="h-11 rounded-full bg-black text-white hover:bg-black/90">
+                <Link href="/seller">Buka Dashboard Admin</Link>
+              </Button>
+            ) : null}
+            <Button asChild variant={isAdminOrSeller ? "outline" : "default"} className="h-11 rounded-full">
               <Link href="/orders">Lihat pesanan saya</Link>
             </Button>
             <form action={logoutAction}>

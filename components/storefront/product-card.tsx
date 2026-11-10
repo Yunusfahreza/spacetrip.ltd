@@ -20,7 +20,7 @@ export function ProductCard({
   return (
     <Link
       href={`/products/${slug}`}
-      className="group overflow-hidden rounded-2xl bg-white shadow-[0_10px_24px_rgba(17,24,39,0.08)]"
+      className="group min-w-0 overflow-hidden rounded-2xl bg-white shadow-[0_10px_24px_rgba(17,24,39,0.08)]"
     >
       <div className="relative aspect-[3/4] w-full bg-[#F7F8FA]">
         {imgUrl ? (

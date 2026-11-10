@@ -44,8 +44,8 @@ export function BottomSheet({
   return (
     <div
       className={cn(
-        "fixed inset-0 z-[70] transition",
-        open ? "pointer-events-auto" : "pointer-events-none"
+        "fixed inset-0 z-[70] overflow-hidden transition",
+        open ? "pointer-events-auto visible" : "pointer-events-none invisible"
       )}
       aria-hidden={open ? undefined : true}
     >
@@ -58,12 +58,14 @@ export function BottomSheet({
         onClick={() => onOpenChange(false)}
       />
 
-      {/* sheet */}
+      {/* sheet / modal */}
       <div
         className={cn(
-          "absolute bottom-0 left-0 right-0 mx-auto w-full max-w-[420px]",
-          "transition-transform duration-200",
-          open ? "translate-y-0" : "translate-y-full"
+          "absolute bottom-0 left-0 right-0 mx-auto w-full max-w-[460px] md:bottom-auto md:top-1/2 md:max-w-lg md:-translate-y-1/2 md:px-4",
+          "transition-all duration-200",
+          open
+            ? "translate-y-0 opacity-100 md:scale-100"
+            : "translate-y-full opacity-0 md:translate-y-0 md:scale-95"
         )}
         role="dialog"
         aria-modal="true"
@@ -71,15 +73,15 @@ export function BottomSheet({
       >
         <div
           className={cn(
-            "rounded-t-[28px] border border-(--st-border) bg-white shadow-[0_-18px_60px_rgba(17,24,39,0.25)]",
+            "rounded-t-[28px] border border-(--st-border) bg-white shadow-[0_-18px_60px_rgba(17,24,39,0.25)] md:rounded-[28px] md:shadow-[0_24px_64px_rgba(17,24,39,0.25)]",
             className
           )}
         >
           <div className="flex items-center justify-between gap-3 border-b border-(--st-border) px-5 py-4">
             <div className="min-w-0 flex-1">
-              <div className="mx-auto h-1.5 w-12 rounded-full bg-[#E5E7EB]" />
+              <div className="mx-auto h-1.5 w-12 rounded-full bg-[#E5E7EB] md:hidden" />
               {title ? (
-                <div className="mt-3 truncate text-sm font-semibold tracking-tight text-(--st-text)">
+                <div className="mt-3 truncate text-sm font-semibold tracking-tight text-(--st-text) md:mt-0 md:text-base">
                   {title}
                 </div>
               ) : null}

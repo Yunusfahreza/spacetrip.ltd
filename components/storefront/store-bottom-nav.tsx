@@ -25,7 +25,7 @@ export function StoreBottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-[max(0px,env(safe-area-inset-bottom))] left-1/2 z-50 w-full max-w-[420px] -translate-x-1/2 border-t border-(--st-border) bg-white/90 backdrop-blur sm:rounded-b-[32px]">
+    <nav className="fixed bottom-[max(0px,env(safe-area-inset-bottom))] left-0 right-0 z-50 border-t border-(--st-border) bg-white/95 backdrop-blur md:hidden">
       <div className="grid grid-cols-4">
         {items.map((it) => {
           const active = it.href === "/" ? pathname === "/" : pathname?.startsWith(it.href);
@@ -36,13 +36,13 @@ export function StoreBottomNav() {
               key={it.href}
               href={it.href}
               className={cn(
-                "flex flex-col items-center justify-center gap-1 py-3 text-xs",
-                active ? "text-(--st-text)" : "text-(--st-text-muted)"
+                "flex flex-col items-center justify-center gap-1 py-2.5 text-xs",
+                active ? "font-semibold text-(--st-text)" : "text-(--st-text-muted)"
               )}
               aria-current={active ? "page" : undefined}
             >
               <Icon className={cn("h-5 w-5", active ? "text-(--st-text)" : "text-(--st-text-muted)")} />
-              <span className="sr-only sm:not-sr-only">{it.label}</span>
+              <span>{it.label}</span>
             </Link>
           );
         })}

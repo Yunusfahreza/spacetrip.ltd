@@ -11,90 +11,114 @@ import { Button } from "@/components/ui/button";
 import { publicListActiveProducts } from "@/lib/catalog/public";
 
 export default async function Home() {
-  const products = await publicListActiveProducts({ limit: 6 });
+  const products = await publicListActiveProducts({ limit: 8 });
 
   return (
     <MobileShell>
       <StoreHeader rightHref="/products" rightLabel="Koleksi" />
 
-      <main className="px-5 pb-6">
-        <section className="mt-5 overflow-hidden rounded-[28px] bg-white shadow-[0_16px_40px_rgba(17,24,39,0.10)]">
-          <div className="relative aspect-4/3 w-full bg-[#F7F8FA]">
-            <div className="absolute inset-0 bg-linear-to-tr from-black/0 via-black/0 to-black/5" />
-
-            <div className="absolute left-5 top-5 flex flex-wrap items-center gap-2">
-              <div className="rounded-full border border-(--st-border) bg-white/90 px-3 py-1 text-[11px] font-medium text-(--st-text-muted)">
+      <main className="px-5 pb-10 md:px-0">
+        {/* Hero Section */}
+        <section className="mt-5 overflow-hidden rounded-[28px] border border-(--st-border) bg-white shadow-[0_12px_36px_rgba(17,24,39,0.06)]">
+          <div className="relative flex min-h-[300px] flex-col justify-between bg-linear-to-br from-[#F7F8FA] via-white to-[#FFF4CC]/40 p-6 md:min-h-[360px] md:p-12">
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="rounded-full border border-(--st-border) bg-white px-3 py-1 text-xs font-medium text-(--st-text-muted)">
                 Kurasi thrift
               </div>
-              <div className="rounded-full border border-(--st-border) bg-white/90 px-3 py-1 text-[11px] font-medium text-(--st-text-muted)">
+              <div className="rounded-full border border-(--st-border) bg-white px-3 py-1 text-xs font-medium text-(--st-text-muted)">
                 Stok terbatas
               </div>
             </div>
 
-            <div className="absolute bottom-5 left-5 right-5">
-              <div className="text-2xl font-semibold tracking-tight text-(--st-text)">
+            <div className="mt-8 max-w-xl md:mt-12">
+              <h1 className="text-3xl font-bold tracking-tight text-(--st-text) md:text-5xl">
                 Temuan dari Orbit.
-              </div>
-              <div className="mt-1 text-sm text-(--st-text-muted)">
-                Kurasi thrift stok terbatas. Kalau cocok, jangan kelamaan.
-              </div>
+              </h1>
+              <p className="mt-3 text-sm leading-relaxed text-(--st-text-muted) md:text-base">
+                Kurasi pakaian thrift pilihan dengan stok terbatas. Pilih gaya favoritmu dan pesan langsung sebelum kehabisan.
+              </p>
 
-              <div className="mt-4 grid grid-cols-2 gap-2">
-                <Button asChild className="h-10 rounded-full">
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <Button asChild className="h-11 rounded-full px-6">
                   <Link href="/products">
                     Lihat koleksi
-                    <ChevronRight className="h-4 w-4" />
+                    <ChevronRight className="ml-1 h-4 w-4" />
                   </Link>
                 </Button>
-                <Button asChild variant="outline" className="h-10 rounded-full bg-white">
+                <Button asChild variant="outline" className="h-11 rounded-full bg-white px-6">
                   <Link href="/profile?next=/products&intent=checkout">Masuk untuk pesan</Link>
                 </Button>
               </div>
 
-              <div className="mt-3 text-[11px] text-(--st-text-muted)">
+              <div className="mt-3 text-xs text-(--st-text-muted)">
                 Untuk memesan, kamu perlu masuk dan melengkapi data profil.
               </div>
             </div>
           </div>
         </section>
 
-        <section className="mt-5 grid gap-3 rounded-3xl border border-(--st-border) bg-white p-4">
-          <div className="text-sm font-semibold text-(--st-text)">Fokus Spacetrip</div>
-          <div className="grid gap-2 text-sm text-(--st-text-muted)">
-            <div className="flex gap-2">
-              <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-(--st-accent-soft) text-[11px] font-semibold text-(--st-text)">1</span>
-              <span>Kurasi item thrift yang wearable untuk dipakai harian.</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-(--st-accent-soft) text-[11px] font-semibold text-(--st-text)">2</span>
-              <span>Info ukuran & kondisi jelas (stok cepat berubah).</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-(--st-accent-soft) text-[11px] font-semibold text-(--st-text)">3</span>
-              <span>Kaos, jeans, cargo, topi, dan item thrift lainnya — update rutin.</span>
-            </div>
+        {/* Fokus Spacetrip - 3 Columns on Desktop, Stacked on Mobile */}
+        <section className="mt-8 grid gap-4 md:grid-cols-3">
+          <div className="rounded-2xl border border-(--st-border) bg-white p-5">
+            <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-(--st-accent-soft) text-xs font-bold text-(--st-text)">
+              1
+            </span>
+            <div className="mt-3 text-sm font-semibold text-(--st-text)">Kurasi Wearable</div>
+            <p className="mt-1 text-xs leading-relaxed text-(--st-text-muted)">
+              Kurasi item thrift pilihan yang nyaman dan keren untuk dipakai harian.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-(--st-border) bg-white p-5">
+            <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-(--st-accent-soft) text-xs font-bold text-(--st-text)">
+              2
+            </span>
+            <div className="mt-3 text-sm font-semibold text-(--st-text)">Detail Jelas</div>
+            <p className="mt-1 text-xs leading-relaxed text-(--st-text-muted)">
+              Informasi ukuran, kondisi, dan ketersediaan stok ditampilkan transparan.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-(--st-border) bg-white p-5">
+            <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-(--st-accent-soft) text-xs font-bold text-(--st-text)">
+              3
+            </span>
+            <div className="mt-3 text-sm font-semibold text-(--st-text)">Update Rutin</div>
+            <p className="mt-1 text-xs leading-relaxed text-(--st-text-muted)">
+              Kaos, jaket, jeans, cargo, topi, dan item menarik lainnya hadir rutin.
+            </p>
           </div>
         </section>
 
-        <section className="mt-6">
+        {/* Produk Terbaru */}
+        <section className="mt-10">
           <div className="flex items-end justify-between gap-3">
             <div>
-              <div className="text-sm font-semibold text-(--st-text)">Produk terbaru</div>
-              <div className="mt-0.5 text-xs text-(--st-text-muted)">Update terbaru dari koleksi thrift</div>
+              <h2 className="text-lg font-semibold tracking-tight text-(--st-text) md:text-xl">
+                Produk terbaru
+              </h2>
+              <p className="mt-0.5 text-xs text-(--st-text-muted) md:text-sm">
+                Update terbaru dari koleksi thrift Spacetrip
+              </p>
             </div>
-            <Link href="/products" className="text-xs font-medium text-(--st-text) underline underline-offset-4">
+            <Link
+              href="/products"
+              className="text-xs font-medium text-(--st-text) underline underline-offset-4 md:text-sm"
+            >
               Lihat semua
             </Link>
           </div>
 
-          <div className="mt-4 grid grid-cols-2 gap-4">
+          <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 md:gap-5">
             {products.length === 0 ? (
-              <div className="col-span-2 rounded-2xl border border-(--st-border) bg-white p-4 text-sm text-(--st-text-muted)">
-                Belum ada produk.
+              <div className="col-span-full rounded-2xl border border-(--st-border) bg-white p-8 text-center text-sm text-(--st-text-muted)">
+                Belum ada produk yang tersedia saat ini.
               </div>
             ) : (
               products.map((p) => {
-                const imgs = (p.product_images ?? []).slice().sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0));
+                const imgs = (p.product_images ?? [])
+                  .slice()
+                  .sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0));
                 const hero = imgs[0] ?? null;
                 return (
                   <ProductCard
@@ -110,22 +134,28 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="mt-6 rounded-3xl border border-(--st-border) bg-white p-4">
-          <div className="text-sm font-semibold text-(--st-text)">Cara belanja</div>
-          <ol className="mt-2 list-decimal space-y-1 pl-4 text-sm text-(--st-text-muted)">
-            <li>Browse koleksi thrift terbaru.</li>
-            <li>Masuk untuk bisa pesan.</li>
-            <li>Pilih ukuran & jumlah, lalu lanjutkan pemesanan.</li>
-            <li>Pantau status pesanan dari menu Orders.</li>
+        {/* Cara Belanja */}
+        <section className="mt-10 rounded-3xl border border-(--st-border) bg-white p-6 md:p-8">
+          <div className="text-base font-semibold text-(--st-text)">Cara belanja di Spacetrip</div>
+          <ol className="mt-4 grid gap-4 text-sm text-(--st-text-muted) sm:grid-cols-2 md:grid-cols-4">
+            <li className="rounded-xl bg-[#F7F8FA] p-4">
+              <span className="font-semibold text-(--st-text)">1. Browse Koleksi</span>
+              <p className="mt-1 text-xs">Temukan item thrift favoritmu di menu Koleksi.</p>
+            </li>
+            <li className="rounded-xl bg-[#F7F8FA] p-4">
+              <span className="font-semibold text-(--st-text)">2. Masuk Akun</span>
+              <p className="mt-1 text-xs">Login dengan Google atau Email untuk mulai memesan.</p>
+            </li>
+            <li className="rounded-xl bg-[#F7F8FA] p-4">
+              <span className="font-semibold text-(--st-text)">3. Checkout</span>
+              <p className="mt-1 text-xs">Pilih ukuran & jumlah, lalu kirim pesanan.</p>
+            </li>
+            <li className="rounded-xl bg-[#F7F8FA] p-4">
+              <span className="font-semibold text-(--st-text)">4. Bayar & Pantau</span>
+              <p className="mt-1 text-xs">Upload bukti bayar QRIS dan pantau di menu Orders.</p>
+            </li>
           </ol>
         </section>
-
-        <div className="mt-6 text-center text-[11px] text-(--st-text-muted)">
-          Mau lihat status pesanan?{" "}
-          <Link href="/orders" className="underline underline-offset-4">
-            Buka Orders
-          </Link>
-        </div>
       </main>
     </MobileShell>
   );

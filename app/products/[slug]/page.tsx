@@ -134,60 +134,64 @@ export default async function ProductDetailPage({
     <MobileShell>
       <StoreHeader title={product.category?.name ?? "Produk"} backHref="/products" />
 
-      <main className="pb-6">
-        <ProductImageCarousel images={carouselImages} />
-
-        <section className="-mt-6 rounded-t-[28px] border-t border-(--st-border) bg-white px-5 pt-5">
-          <div className="text-xs font-medium text-(--st-text-muted)">
-            {product.category?.name ?? "Uncategorized"}
+      <main className="pb-10 md:mt-6">
+        <div className="md:grid md:grid-cols-2 md:items-start md:gap-8">
+          <div className="overflow-hidden md:rounded-3xl md:border md:border-(--st-border) md:bg-white">
+            <ProductImageCarousel images={carouselImages} />
           </div>
-          <div className="mt-1 flex items-start justify-between gap-3">
-            <h1 className="text-lg font-semibold tracking-tight text-(--st-text)">
-              {product.name}
-            </h1>
-            <div className="shrink-0 text-base font-semibold text-(--st-text)">
-              {formatIDR(product.price)}
+
+          <section className="-mt-6 rounded-t-[28px] border-t border-(--st-border) bg-white px-5 pt-5 md:mt-0 md:rounded-3xl md:border md:p-7 md:shadow-[0_12px_32px_rgba(17,24,39,0.06)]">
+            <div className="text-xs font-medium text-(--st-text-muted)">
+              {product.category?.name ?? "Uncategorized"}
             </div>
-          </div>
-
-          {product.description ? (
-            <p className="mt-3 text-sm leading-6 text-(--st-text-muted)">
-              {product.description}
-            </p>
-          ) : null}
-
-          <div className="mt-4 rounded-2xl border border-(--st-border) bg-[#F7F8FA] p-4 text-sm">
-            <div className="font-medium text-(--st-text)">Catatan thrift</div>
-            <div className="mt-1 text-(--st-text-muted)">
-              Setiap item unik dan stok terbatas. Pastikan ukuran & detailnya cocok sebelum pesan.
-            </div>
-          </div>
-
-          <div className="mt-5 rounded-2xl border border-(--st-border) bg-[#F7F8FA] p-4 text-sm">
-            {loggedIn ? (
-              <div className="text-(--st-text-muted)">
-                Kamu sudah masuk. Kamu bisa lanjut pilih ukuran & jumlah.
+            <div className="mt-1 flex items-start justify-between gap-3">
+              <h1 className="text-lg font-semibold tracking-tight text-(--st-text) md:text-2xl">
+                {product.name}
+              </h1>
+              <div className="shrink-0 text-base font-semibold text-(--st-text) md:text-xl">
+                {formatIDR(product.price)}
               </div>
-            ) : (
-              <div>
-                <div className="font-medium text-(--st-text)">Harus masuk dulu</div>
-                <div className="mt-1 text-(--st-text-muted)">
-                  Masuk untuk bisa melakukan pemesanan dan lihat status order.
+            </div>
+
+            {product.description ? (
+              <p className="mt-3 text-sm leading-6 text-(--st-text-muted)">
+                {product.description}
+              </p>
+            ) : null}
+
+            <div className="mt-4 rounded-2xl border border-(--st-border) bg-[#F7F8FA] p-4 text-sm">
+              <div className="font-medium text-(--st-text)">Catatan thrift</div>
+              <div className="mt-1 text-(--st-text-muted)">
+                Setiap item unik dan stok terbatas. Pastikan ukuran & detailnya cocok sebelum pesan.
+              </div>
+            </div>
+
+            <div className="mt-5 rounded-2xl border border-(--st-border) bg-[#F7F8FA] p-4 text-sm">
+              {loggedIn ? (
+                <div className="text-(--st-text-muted)">
+                  Kamu sudah masuk. Kamu bisa lanjut pilih ukuran & jumlah.
                 </div>
-              </div>
-            )}
-          </div>
+              ) : (
+                <div>
+                  <div className="font-medium text-(--st-text)">Harus masuk dulu</div>
+                  <div className="mt-1 text-(--st-text-muted)">
+                    Masuk untuk bisa melakukan pemesanan dan lihat status order.
+                  </div>
+                </div>
+              )}
+            </div>
 
-          <ProductCheckoutSheet
-            slug={slug}
-            productName={product.name}
-            loggedIn={loggedIn}
-            profileComplete={profileComplete}
-            variants={variants}
-            defaultVariantId={defaultVariantId}
-            action={checkoutAction}
-          />
-        </section>
+            <ProductCheckoutSheet
+              slug={slug}
+              productName={product.name}
+              loggedIn={loggedIn}
+              profileComplete={profileComplete}
+              variants={variants}
+              defaultVariantId={defaultVariantId}
+              action={checkoutAction}
+            />
+          </section>
+        </div>
       </main>
     </MobileShell>
   );
